@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-
+// For jobseeker
 @Controller
 public class JobSeekerApplyController {
 

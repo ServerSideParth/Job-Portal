@@ -1,0 +1,163 @@
+
+
+
+
+                               GrantedAuthority
+
+
+   GrantedAuthority is an interface in Spring Security that represents a granted authority or privilege
+   granted to an authenticated principal (typically a user) within a Spring Security-enabled application.
+   It is often used in conjunction with Spring Security's authentication and authorization mechanisms to
+   determine whether a user has the necessary permissions to access certain resources or perform specific actions.
+
+
+
+  (.) In a Spring Security-enabled application, when a user authenticates (logs in), they are assigned one or
+      more GrantedAuthority instances that represent the permissions or roles associated with their account.
+
+ (.) GrantedAuthority instances are commonly used to implement Role-Based Access Control (RBAC) in Spring Security.
+
+
+
+
+                          UserDetails
+
+UserDetails is an interface provided by Spring Security that represents core user information retrieved during
+the authentication process. It encapsulates details about a user such as their username, password, authorities,
+and account status.
+
+(.)    Authentication
+
+       When a user attempts to authenticate (e.g., by logging in), Spring Security's authentication mechanisms
+       load the user's details from a data source and construct a UserDetails object representing the user.
+
+(.)    Authorization
+
+       Once a user is successfully authenticated, Spring Security uses the UserDetails object to perform
+       authorization checks to determine whether the user is allowed to access certain resources or perform
+       specific actions.
+
+ (.)   Integration with Authentication Provider
+
+       UserDetails is often used by authentication providers (e.g., UserDetailsService) to load user details
+       from a data source during the authentication process.
+
+
+                     UserDetailService
+
+ UserDetailsService is an interface provided by Spring Security that is used to retrieve user-related data
+ during the authentication process. It is a core part of Spring Security's authentication mechanism and
+ is responsible for loading user details (such as username, password, and authorities) from a data source
+ and returning them as a UserDetails object.
+
+
+
+
+                          SimpleGrantedAuthority
+
+       SimpleGrantedAuthority is a simple implementation of the GrantedAuthority interface provided by
+       Spring Security. It represents a granted authority or role granted to an authenticated principal
+       (typically a user) within a Spring Security-enabled application.
+
+
+
+                            Service Annotation
+
+       The @Service annotation in Spring is used to mark a class as a service component in the Spring application
+       context. It serves as a specialization of the @Component annotation, indicating that the annotated class
+       is a service class that contains business logic.
+
+              (.)  Component Scanning
+
+                  When Spring scans your application for components (beans), classes annotated with @Service
+                   are automatically detected and registered as a spring bean .
+                   Spring's component scanning mechanism, enabled by default, looks for classes annotated with
+                   @Service (as well as @Component, @Repository, and @Controller) and instantiates them as beans.
+
+               (.)  Specialization of @Component:
+
+                    While @Component can be used to annotate any generic Spring-managed component, @Service is
+                    specifically intended for service layer components that contain business logic.
+
+               (.)   Configuration classes can be used to define properties files, environment-specific
+                     configurations, and other externalized configuration settings.
+
+                     Configuration Annotation
+
+       The @Configuration annotation in Spring is used to indicate that a class is a configuration class that
+        provides configuration to the Spring application context.
+
+           (.)    Configuration classes are used to define Spring beans. Methods annotated with @Bean within
+                  a configuration class are used to declare bean definitions.
+
+            (.) Beans defined in configuration classes are automatically registered with the Spring application
+                context and can be injected into other components.
+
+
+                               InMemoryUserDetailsManager
+
+        InMemoryUserDetailsManager is a class provided by Spring Security.
+        It's used for managing user details in-memory within a Spring
+        Security configuration.
+
+          (.) InMemoryUserDetailsManager stores user details such as username, password, authorities (roles),
+               and additional attributes in memory.
+
+          (.)  It provides a mechanism for authenticating users based on the stored user details.
+               When a user attempts to log in, Spring Security compares the provided credentials with the
+               stored user details to verify the user's identity.
+
+          (.)  It also provides information about the authorities assigned to each user. This information
+               is used by Spring Security to determine whether a user is authorized to access certain
+               resources or perform specific actions within the application.
+
+                                     SecurityFilterChain
+
+         SecurityFilterChain is a concept in Spring Security that represents a chain of filters
+         responsible for handling security-related concerns in a web application. Each SecurityFilterChain
+         typically consists of a sequence of filters that are applied to incoming HTTP requests
+         to perform tasks such as authentication, authorization, CSRF protection, session management,
+         and more.
+             (.) SecurityFilterChain  are ordered based on their specificity. The most specific
+                 SecurityFilterChain that matches the request URL pattern is selected to handle the request.
+
+            (.)  The filters are executed in a predefined order. The order is significant because it dictates
+                 how security checks are applied. For example, authentication checks typically occur before
+                 authorization checks.
+
+                                      HttpSecurity
+
+         HttpSecurity is a configuration object provided by Spring Security that allows you to configure
+         security-related settings for HTTP requests in a web application.
+
+              (.) authorizeHttpRequests : You can use methods such as authorizeRequests() to define
+                                         authorization rules for different URL patterns or request criteria.
+              (.) formLogin
+              (.) Logout Handling
+
+
+                                     userDetailsManager
+
+              UserDetailsManager is an interface provided by Spring Security that defines operations
+              for managing user details, such as creating, updating, deleting, and retrieving user
+              information. It's typically used in applications where user accounts are stored in a
+              persistent storage mechanism, such as a database.
+              UserDetailsManager is often implemented by classes such as JdbcUserDetailsManager,
+              InMemoryUserDetailsManager.
+
+                                    userDetailsManger(Interface)
+                                              |------------------------------|
+                                     jdbcUserDetailsManger(class)       InMemoryUserDetailsManager(class)
+
+
+
+                                   (@) Context Path/Context root
+
+              The root path of your web application
+
+              @- It give access to the context path dynamically
+                 (.) It helps to keep links relative to application context path.
+                 (.) Much better than hard-coding the context path.
+
+               for example : http://localhost:8080/my-ecommerce-app
+               context root: my-ecommerce-app

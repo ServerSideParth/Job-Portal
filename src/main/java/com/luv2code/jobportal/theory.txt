@@ -1,0 +1,302 @@
+
+Leanings:
+
+
+if i want to show something in a view template via model then it is necessarily when add something to the model
+in that controller that template is present in which you want to show that message present in the model.
+(Redirect does not work here because it is redirected to another controller it means it will go to the same template but controller
+is different in that case prefer embed variable in a link to overcome redundancy).
+
+(JobPostActivity and template related)
+
+In JobPostActivity entity it is mandatory to add Cascade on the fields of JobCompany and JobLocation
+as in add-jobs template when form set the values ie(jobPostActivity.jobCompany.CompanyName) it sets the value of company name
+present in a Job_Company class and same happens with job_location although we can explicitly save the location id and company id of
+these classes as it is primary key managed by database but for this we need to store it first.
+Suppose a case when we stored JopPostActivity object in a database as if we cant specify cascade type it means its associate
+entities is set but it is not stored in a database so what happens JobPostActivity does not able to take refrence as
+i mentioned jobLocation and jobCompany are the foreign keys in a jobPostActivity table so for referencing the primary keys of
+these tables in a jobPostActivity table it is important that it is exist.
+
+                            BootStrap(Optional)
+
+Bootstrap is a popular front-end framework used for developing responsive and mobile-first websites.
+Here are some key uses of Bootstrap:
+
+Responsive Design: Bootstrap's grid system allows developers to create layouts that adapt to
+                   different screen sizes and devices, ensuring a consistent user experience across
+                   desktops, tablets, and smartphones.
+
+Pre-designed Components: It offers a wide range of pre-designed UI components such as navigation bars,
+                         buttons, forms, modals, carousels, and alerts. These components are customizable
+                         and can be easily integrated into web projects.
+
+
+Cross-browser Compatibility: Bootstrap is designed to work seamlessly across various modern browsers,
+                              reducing the need for extensive browser-specific adjustments.
+
+
+
+
+                                  Jquery(Optional)
+
+jQuery is a fast, small, and feature-rich JavaScript library designed to simplify the client-side
+scripting of HTML. Here are some common uses of jQuery:
+
+DOM Manipulation: jQuery makes it easy to select, traverse, and manipulate the Document Object Model (DOM)
+                  elements. It provides a simple and consistent syntax for changing the content, structure,
+                  and style of web pages.
+
+Event Handling: jQuery simplifies the process of capturing and handling events, such as clicks,
+                mouse movements, form submissions, and keyboard events. This helps in creating
+                dynamic and interactive web applications.
+
+
+Cross-browser Compatibility: jQuery handles many cross-browser issues, ensuring that your code works
+                             consistently across different web browsers.
+
+
+                                         WebJAR
+
+A WebJar is like a tidy package for web libraries (like jQuery, Bootstrap, or other frontend tools)
+that you can use in your Java or JVM-based projects. Instead of manually downloading and managing
+these libraries, WebJars package them up neatly into JAR (Java Archive) files, which your Java projects
+can easily use.
+
+
+                                          WebJar Locators
+
+
+The WebJars locator is responsible for mapping the resources in your WebJars to the correct URLs
+that your application uses to access them.
+the absence of the WebJars locator dependency in your Spring Boot project can indeed cause issues,
+especially if you are relying on WebJars for managing your frontend dependencies like Bootstrap.
+
+
+                                        MapsId
+
+The @MapsId annotation in the context of a dual role key is used to map the primary key of an entity
+to the primary key of another entity, ensuring that the primary key of the dependent entity is also
+used as a foreign key. This is typically used in a one-to-one relationship where the child entity shares
+its primary key with the parent entity.
+
+
+context:
+
+You have two entities: Users and UserAccount. The UserAccount entity uses its primary key userAccountId
+both as its own primary key and as a foreign key to reference the primary key (id) of the Users entity.
+
+Primary Key Definition:
+
+In the UserAccount entity, the field userAccountId is defined as the primary key with the @Id annotation.
+@Column(name = "user_account_id") specifies the column name in the database.
+
+One-to-One Relationship:
+
+The user field in the UserAccount entity is annotated with @OneToOne, indicating a one-to-one relationship
+with the Users entity.
+@JoinColumn(name = "user_account_id") indicates that this relationship is managed by the column user_account_id.
+
+
+When you annotate the user field with @MapsId, JPA understands that the userAccountId field will be
+used to store the primary key of the UserAccount entity and, at the same time,
+it will be used to map the relationship to the Users entity.
+
+(Link- "https://chatgpt.com/c/8b6a7e28-985b-468b-81bc-f995819f81c6")
+
+
+                                Authentication provider
+
+AuthenticationProvider is a core interface used to process authentication requests.
+It is responsible for validating the provided credentials (such as a username and password)
+and creating an Authentication object if the credentials are valid.
+
+
+                                DaoAuthenticationProvider
+
+DaoAuthenticationProvider is a concrete implementation of the AuthenticationProvider interface provided
+by Spring Security. It is designed to authenticate a user by retrieving user details from a data source
+(typically a database) through a UserDetailsService.
+This provider is used to perform authentication based on a username and password.
+
+Key Components:
+
+UserDetailsService: An interface used to retrieve user-related data. It has a method
+                    loadUserByUsername(String username) which is implemented to fetch user details.
+
+PasswordEncoder: An interface for encoding passwords. DaoAuthenticationProvider
+                 uses this to validate the password provided during authentication.
+
+                              Working
+
+1.)Authentication Request: A user submits their credentials (e.g., username and password).
+
+2.)AuthenticationManager: The AuthenticationManager delegates the authentication request to
+   one or more AuthenticationProvider instances.
+
+3.)AuthenticationProvider: Each AuthenticationProvider attempts to authenticate the request.
+   If successful, it returns an Authentication object representing the authenticated user.
+
+4.)Authentication: If no provider can authenticate the request, an exception is thrown.
+
+
+                             steps of Authentication(using Authentication provider)
+                                         (High level Overview)
+
+Step 1->  User Submits Login Form:
+
+ The user enters their username and password into a login form on the web application and submits it.
+
+Step 2-> Login Request Handling:
+
+ The form submission sends a POST request to the server, typically to an endpoint like /login.
+
+Step 3-> UsernamePasswordAuthenticationFilter Intercepts the Request:
+
+ Spring Security’s UsernamePasswordAuthenticationFilter is configured to intercept this login request.
+ This filter extracts the username and password from the login form. By default, it looks for the
+ parameters named username and password.
+
+Step 4-> Creation of UsernamePasswordAuthenticationToken:
+
+ The UsernamePasswordAuthenticationFilter creates a UsernamePasswordAuthenticationToken with the
+ extracted username and password.
+
+Step 5-> AuthenticationManager:
+
+ The token is then passed to the AuthenticationManager, which manages the authentication process.
+ This manager is configured with one or more AuthenticationProviders, such as DaoAuthenticationProvider.
+
+Step 6-> DaoAuthenticationProvider:
+
+ The DaoAuthenticationProvider is a standard implementation of AuthenticationProvider that uses
+ UserDetailsService to retrieve user details and PasswordEncoder to compare passwords.
+ It calls the UserDetailsService’s loadUserByUsername method, passing the username
+ extracted from the login form.
+
+Step 7-> UserDetailsService Retrieves User Details:
+
+ The UserDetailsService loads the user’s data from the database (or other storage) and
+ returns a UserDetails object containing the user's information.
+
+
+step 8-> Authentication Object:
+
+The AuthenticationProvider uses the UserDetails object to create an Authentication object.
+This object includes the user's details and granted authorities (roles or permissions).
+
+step 9->  Security Context:
+
+If the authentication is successful, the AuthenticationProvider sets the created Authentication object
+in the SecurityContext
+
+
+Note: When the loadUserByUsername method of UserDetailsService returns a UserDetails object,
+      the AuthenticationProvider (typically DaoAuthenticationProvider) uses this object to compare
+      the entered credentials during the authentication process in Spring Security.
+
+
+
+                                    Visualization
+
+              User submits login form (username, password)
+                        |
+                        v
+              Spring Security Filter Chain intercepts the request
+                        |
+                        v
+              UsernamePasswordAuthenticationFilter creates Authentication object
+                        |
+                        v
+              AuthenticationManager receives Authentication object
+                        |
+                        v
+              AuthenticationManager delegates to AuthenticationProvider
+                        |
+                        v
+              DaoAuthenticationProvider uses UserDetailsService to load user details
+                        |
+                        v
+              UserDetailsService retrieves user details from data source
+                        |
+                        v
+              UserDetailsService returns UserDetails object
+                        |
+                        v
+              DaoAuthenticationProvider verifies password and checks account status
+                        |
+                        v
+              If valid:
+                - Creates authenticated Authentication object
+                - Stores it in SecurityContext
+              If invalid:
+                - Throws AuthenticationException
+
+
+
+                               HttpServletRequest
+ The HttpServletRequest interface represents an HTTP request. It is provided by the Java Servlet API
+ and is used to retrieve information about the request made by the client to the server. This includes:
+
+ Request Parameters: Data sent by the client, such as form data or query parameters.
+ Request Headers: Information sent in the request header, like cookies, content type, etc.
+ Session Information: Access to the HttpSession associated with the request, allowing you to manage session data.
+ Client Information: Information about the client making the request, such as IP address, host name, etc.
+
+
+                              HttpServletResponse
+ The HttpServletResponse interface represents an HTTP response. It is provided by the Java Servlet API and
+  is used to construct and send a response back to the client. This includes:
+
+ Setting Response Status: Setting the HTTP status code of the response (e.g., 200 OK, 404 Not Found).
+ Setting Response Headers: Adding or modifying headers in the response.
+ Redirecting: Redirecting the client to another URL.
+ Managing Cookies: Adding cookies to the response.
+
+
+                            GrantedAuthority and SimpleGrantedAuthority
+
+GrantedAuthority and SimpleGrantedAuthority are concepts related to defining and handling authorities
+(or roles) granted to an authenticated user. Here's a detailed explanation:
+
+(.)GrantedAuthority
+
+GrantedAuthority is an interface in Spring Security that represents an authority granted to an
+Authentication object. An authority is typically a permission or a role assigned to a user.
+
+(.)SimpleGrantedAuthority
+
+SimpleGrantedAuthority is a concrete implementation of the GrantedAuthority interface.
+ is the most commonly used implementation and is used to represent a single authority granted
+ to an authenticated user.
+
+                                 SecurityContextHolder
+
+SecurityContextHolder is a core class in Spring Security used to store and retrieve the SecurityContext
+for the current execution thread. The SecurityContext holds the Authentication object, which contains
+details about the currently authenticated user.
+
+
+
+                               [__${IterStat.index}--]
+
+[__${iterStat.index}__] in Thymeleaf templates allows you to dynamically bind form fields to a collection of
+objects within a parent object. This ensures that each form field is uniquely identified and properly mapped to the
+ corresponding element in the collection, facilitating correct data binding and processing on the server side.
+
+   for example:
+
+ Suppose you have a form where users can edit a list of skills associated with a user. Each skill
+ has an ID and a name. When the form is submitted, you want to be able to capture all the edited skills
+ and correctly map them back to the server-side objects. To do this, you need to ensure that each form field is
+  uniquely identified and tied to the corresponding element in the list.
+
+
+                                 Model in context of redirect
+
+When you redirect to another URL, the current request's model attributes are not automatically passed
+to the new request. The redirect results in a new request from the client, meaning the jobSeekerProfile
+and skillsList attributes you added to the model will not be available to the /dashboard/ controller.
+
+(.) If you needed to pass data to the redirected request, you would use RedirectAttributes or session attributes
+instead of the model.
